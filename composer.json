@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.15",
         "symfony/asset": "6.3.*",
+        "symfony/config": "6.3.*",
         "symfony/console": "6.3.*",
         "symfony/dotenv": "6.3.*",
         "symfony/flex": "^2",
@@ -20,6 +21,7 @@
         "symfony/mailer": "6.3.*",
         "symfony/runtime": "6.3.*",
         "symfony/security-bundle": "6.3.*",
+        "symfony/string": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
         "symfony/validator": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.0",
@@ -27,6 +29,7 @@
         "symfonycasts/verify-email-bundle": "^1.13"
     },
     "require-dev": {
+        "symfony/debug-bundle": "6.3.*",
         "symfony/maker-bundle": "^1.50"
     },
     "config": {
