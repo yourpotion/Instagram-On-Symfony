@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Instagram{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset(absolute_url(asset('build/app.css')))}}">
+        {% endblock %}
+
+    </head>
+    <header>
+    {% block header %}
+    {% include ('MainInstagramPage/html/header.html.twig') %}
+    {% endblock %}
+    </header>
+    {% if app.user %}
+    
+    <body>
+        {% block body %}
+        {% include ('MainInstagramPage/html/body.html.twig') %}
+        {% include ('MainInstagramPage/html/sidebars.html.twig') %}
+        {% endblock %}
+    </body>
+    {% else %}
+    <body>
+        {% block error %} {% include ('MainInstagramPage/html/error.html.twig') %} {% endblock %}
+    </body>
+    {% endif %}
+    
+</html>

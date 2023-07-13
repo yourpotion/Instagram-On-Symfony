@@ -1,0 +1,22 @@
+{% block header %}
+
+
+<nav class="navbar">
+    <div class="nav-wrapper">
+        <img src="{{absolute_url(asset('images/logo.PNG'))}}" class="brand-img" alt="">
+        <input type="text" class="search-box" placeholder="search">
+        <div class="nav-items">
+            <img src="{{absolute_url(asset('images/home.PNG'))}}" class="icon" alt="">
+            <img src="{{absolute_url(asset('images/messenger.PNG'))}}" class="icon" alt="">
+                <a href="/create">
+                    <img src="{{absolute_url(asset('images/add.PNG'))}}" class="icon" href="/create" alt="">
+                </a>
+            <img src="{{absolute_url(asset('images/explore.PNG'))}}" class="icon" alt="">
+            <img src="{{absolute_url(asset('images/like.PNG'))}}" class="icon" alt="">
+                <a class="icon" href="/{{app.user ? 'logout' : 'login'}}">
+                    <img src="{{absolute_url(asset('images/login.PNG'))}}" class="icon" alt ="">
+                </a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
