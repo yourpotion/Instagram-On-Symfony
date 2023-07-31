@@ -3,18 +3,12 @@
     <div class="wrapper">
         <div class="left-col">
             <div class="status-wrapper">
+            {% for post in posts %}
                 <div class="status-card">
-                    <div class="profile-pic"><img src="{{absolute_url(asset('images/cover 1.png'))}}" alt=""></div>
-                    <p class="username">user_name_1</p>
+                    <div class="profile-pic"><img src="{{post.imagePath }}" alt=""></div>
+                    <p class="username"> {{post.title}} </p>
                 </div>
-                <div class="status-card">
-                    <div class="profile-pic"><img src="{{absolute_url(asset('images/cover 2.png'))}}" alt=""></div>
-                    <p class="username">user_name_2</p>
-                </div>
-                <div class="status-card">
-                    <div class="profile-pic"><img src="{{absolute_url(asset('images/cover 3.png'))}}" alt=""></div>
-                    <p class="username">user_name_3</p>
-                </div>
+            {% endfor %}
             </div>
         </div>
     </div>

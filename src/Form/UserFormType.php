@@ -4,10 +4,11 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddFormType extends AbstractType
+class UserFormType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,9 +20,16 @@ class AddFormType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
             ->add('password')
-            ->add('isVerified')
+            ->add('NickName')
+            ->add('description')
+            ->add('imagePath', FileType::class, [
+                'attr' => array(
+                'class' => 'py-10',
+                'placeholder' => 'Enter Description...'
+                ),
+                'label' => false
+            ]);
         ;
     }
 

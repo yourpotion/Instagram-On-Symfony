@@ -4,16 +4,16 @@
     <div class="wrapper">
         {# Left sidebar #}
         <div class="left-col">
-
+        {% for post in posts %}
             <div class="post">
                 <div class="info">
                     <div class="user">
                         <div class="profile-pic"><img src="{{absolute_url(asset('images/cover 1.png'))}}" alt=""></div>
-                        <p class="username">modern_web_channel</p>
+                        <p class="username">{{post.title}}</p>
                     </div>
                     <img src="{{absolute_url(asset('images/option.png'))}}" class="options" alt="">
                 </div>
-                <img src="{{absolute_url(asset('images/cover 1.png'))}}" class="post-image" alt="">
+                <img src="{{post.imagePath}}" class="post-image" alt="">
                 <div class="post-content">
                     <div class="reaction-wrapper">
                         <img src="{{absolute_url(asset('images/like.PNG'))}}" class="icon" alt="">
@@ -22,8 +22,8 @@
                         <img src="{{absolute_url(asset('images/save.PNG'))}}" class="save icon" alt="">
                     </div>
                     <p class="likes">1,012 likes</p>
-                    <p class="description"><span>username </span> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur tenetur veritatis placeat, molestiae impedit aut provident eum quo natus molestias?</p>
-                    <p class="post-time">2 minutes ago</p>
+                    <p class="description"><span>{{post.title}} </span> {{post.description}}</p>
+                    <p class="post-time">{{post.ReleaseDate}}</p>
                 </div>
                 <div class="comment-wrapper">
                     <img src="{{absolute_url(asset('images/smile.png'))}}" class="icon" alt="">
@@ -31,32 +31,7 @@
                     <button class="comment-btn">post</button>
                 </div>
             </div>
-            <div class="post">
-                <div class="info">
-                    <div class="user">
-                        <div class="profile-pic"><img src="{{absolute_url(asset('images/cover 2.png'))}}" alt=""></div>
-                        <p class="username">modern_web_channel</p>
-                    </div>
-                    <img src="{{absolute_url(asset('images/option.png'))}}" class="options" alt="">
-                </div>
-                <img src="{{absolute_url(asset('images/cover 2.png'))}}" class="post-image" alt="">
-                <div class="post-content">
-                    <div class="reaction-wrapper">
-                        <img src="{{absolute_url(asset('images/like.PNG'))}}" class="icon" alt="">
-                        <img src="{{absolute_url(asset('images/comment.PNG'))}}" class="icon" alt="">
-                        <img src="{{absolute_url(asset('images/send.PNG'))}}" class="icon" alt="">
-                        <img src="{{absolute_url(asset('images/save.PNG'))}}" class="save icon" alt="">
-                    </div>
-                    <p class="likes">1,012 likes</p>
-                    <p class="description"><span>username </span> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur tenetur veritatis placeat, molestiae impedit aut provident eum quo natus molestias?</p>
-                    <p class="post-time">2 minutes ago</p>
-                </div>
-                <div class="comment-wrapper">
-                    <img src="{{absolute_url(asset('images/smile.PNG'))}}" class="icon" alt="">
-                    <input type="text" class="comment-box" placeholder="Add a comment">
-                    <button class="comment-btn">post</button>
-                </div>
-            </div>
+        {% endfor %}
         </div>
 
     {# Right sidebar #}

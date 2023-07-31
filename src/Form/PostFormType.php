@@ -2,12 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddFormType extends AbstractType
+class PostFormType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,11 +19,16 @@ class AddFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('roles')
-            ->add('password')
-            ->add('isVerified')
-        ;
+            ->add('title')
+            ->add('releaseDate')
+            ->add('description')
+            ->add('imagePath', FileType::class, [
+                'attr' => array(
+                'class' => 'py-10',
+                'placeholder' => 'Enter Description...'
+                ),
+                'label' => false
+            ]);
     }
 
     /**
@@ -33,7 +39,7 @@ class AddFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Post::class,
         ]);
     }
 }

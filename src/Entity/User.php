@@ -4,13 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -24,25 +22,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
+    private $userVerifStatus;
+
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    #[ORM\Column(length: 20)]
+    private ?string $NickName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imagePath = null;
+
+
+    /**
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * 
+     * @return static
+     */
     public function setEmail(string $email): static
     {
         $this->email = $email;
@@ -72,6 +90,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * 
+     * @return static
+     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -87,6 +110,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     * 
+     * @return static
+     */
     public function setPassword(string $password): static
     {
         $this->password = $password;
@@ -103,15 +131,88 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function isVerified(): bool
+    /**
+     * @param Bool $isVerified
+     * 
+     * @return User
+     */
+    public function setIsVerified(Bool $isVerified): User
     {
-        return $this->isVerified;
+        $userVerifStatus = $isVerified;
+        $this->userVerifStatus = $isVerified;
+
+        return $this;
+        
     }
 
-    public function setIsVerified(bool $isVerified): static
+    /**
+     * @return bool
+     */
+    public function getIsVerified(): bool
     {
-        $this->isVerified = $isVerified;
+        return $this->userVerifStatus;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNickName(): ?string
+    {
+        return $this->NickName;
+    }
+
+    /**
+     * @param string $NickName
+     * 
+     * @return static
+     */
+    public function setNickName(string $NickName): static
+    {
+        $this->NickName = $NickName;
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     * 
+     * @return static
+     */
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param string|null $imagePath
+     * 
+     * @return static
+     */
+    public function setImagePath(?string $imagePath): static
+    {
+        $this->imagePath = $imagePath;
+
+        return $this;
+    }
+
+
+
 }

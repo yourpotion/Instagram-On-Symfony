@@ -16,9 +16,23 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * 
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('NickName', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'autocomplete' => 'NickName',                     
+                    'class' => 'bg-transparent block mt-10 mx-auto border-b-2 w-1/5 h-20 text-2xl outline-none',
+                    'placeholder' => 'NickName'
+                ],
+            ])
             ->add('email', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -60,6 +74,11 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     * 
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
