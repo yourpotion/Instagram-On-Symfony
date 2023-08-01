@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\PostFormType;
 use App\Form\UserFormType;
 use App\Repository\PostsRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -27,13 +28,19 @@ class MainInstagramPageController extends AbstractController
     private $postsRepository;
 
     /**
+     * @var \App\Repository\UserRepository
+     */
+    private $userRepository;
+
+    /**
      * @param PostsRepository $postsRepository
      * @param EntityManagerInterface $em
      */
-    public function __construct(PostsRepository $postsRepository, EntityManagerInterface $em)
+    public function __construct(PostsRepository $postsRepository, EntityManagerInterface $em, UserRepository $userRepository)
     {
         $this->postsRepository = $postsRepository;
         $this->em = $em;
+        $this->userRepository = $userRepository;
     }
 
     #[Route('/', name: 'app_main_instagram_page')]
@@ -78,8 +85,7 @@ class MainInstagramPageController extends AbstractController
                 $newPost->setImagePath('/uploads/' . $newFileName);
             }
 
-            $this->em->persist($newPost);
-            $this->em->flush();
+            $this->postsRepository->save($newPost);
 
             return $this->redirectToRoute('app_main_instagram_page');
         }
@@ -120,9 +126,7 @@ class MainInstagramPageController extends AbstractController
 
                 $newUser->setImagePath('/uploads/profile' . $newFileName);
             }
-
-            $this->em->persist($newUser);
-            $this->em->flush();
+            $this->userRepository->save($newUser);
 
             return $this->redirectToRoute('app_main_instagram_page');
         }

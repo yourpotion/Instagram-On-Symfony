@@ -11,22 +11,37 @@ class Post
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     */
+    private ?int $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    /**
+     * @var string
+     */
+    private ?string $title;
 
     #[ORM\Column]
-    private ?int $releaseDate = null;
+    /**
+     * @var int
+     */
+    private ?int $releaseDate;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $description = null;
+    /**
+     * @var string
+     */
+    private ?string $description;
 
     #[ORM\Column(length: 255)]
-    private ?string $imagePath = null;
+    /**
+     * @var string
+     */
+    private ?string $imagePath;
 
     /**
-     * @return int|null
+     * @return int
      */
     public function getId(): ?int
     {
@@ -34,7 +49,7 @@ class Post
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getTitle(): ?string
     {
@@ -54,7 +69,7 @@ class Post
     }
 
     /**
-     * @return int|null
+     * @return int
      */
     public function getReleaseDate(): ?int
     {

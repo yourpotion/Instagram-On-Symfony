@@ -24,8 +24,8 @@ class PostFormType extends AbstractType
             ->add('description')
             ->add('imagePath', FileType::class, [
                 'attr' => array(
-                'class' => 'py-10',
-                'placeholder' => 'Enter Description...'
+                    'class' => 'py-10',
+                    'placeholder' => 'Enter Description...'
                 ),
                 'label' => false
             ]);

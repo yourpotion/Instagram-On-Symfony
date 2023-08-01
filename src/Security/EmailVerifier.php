@@ -39,14 +39,9 @@ class EmailVerifier
 
         $emailContextDTO = EmailContextDTO::fromSignatureComponents($signatureComponents);
 
-        $context = $email->getContext();
-        $context['signedUrl'] = $emailContextDTO->signedUrl;
-        $context['expiresAtMessageKey'] = $emailContextDTO->expiresAtMessageKey;
-        $context['expiresAtMessageData'] = $emailContextDTO->expiresAtMessageData;
+        $preparedEmail = EmailContextDTO::prepareEmail($emailContextDTO, $email);
 
-        $email->context($context);
-
-        $this->mailer->send($email);
+        $this->mailer->send($preparedEmail);
     }
     /**
      * @param Request $request

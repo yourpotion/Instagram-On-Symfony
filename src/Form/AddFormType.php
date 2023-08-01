@@ -21,8 +21,7 @@ class AddFormType extends AbstractType
             ->add('email')
             ->add('roles')
             ->add('password')
-            ->add('isVerified')
-        ;
+            ->add('isVerified');
     }
 
     /**

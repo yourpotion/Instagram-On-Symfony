@@ -7,7 +7,7 @@ use Symfony\Component\Mailer\MailerInterface;
 class EmailController
 {
     /**
-     * @var [type]
+     * @var MailerIntarface
      */
     private $mailer;
 

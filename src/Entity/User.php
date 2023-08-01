@@ -14,12 +14,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+
+    /**
+     * @var int
+     */
+    private ?int $id;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+    /**
+     * @var string
+     */
+    private ?string $email;
 
     #[ORM\Column]
+    /**
+     * @var array
+     */
     private array $roles = [];
 
     private $userVerifStatus;
@@ -28,16 +38,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    /**
+     * @var string
+     */
+    private ?string $password;
 
     #[ORM\Column(length: 20)]
-    private ?string $NickName = null;
+    /**
+     * @var string
+     */
+    private ?string $NickName;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $description = null;
+    /**
+     * @var string
+     */
+    private ?string $description;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $imagePath = null;
+    /**
+     * @var string
+     */
+    private ?string $imagePath;
 
 
     /**

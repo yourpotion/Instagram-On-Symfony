@@ -28,7 +28,7 @@ class RegistrationFormType extends AbstractType
             ->add('NickName', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'autocomplete' => 'NickName',                     
+                    'autocomplete' => 'NickName',
                     'class' => 'bg-transparent block mt-10 mx-auto border-b-2 w-1/5 h-20 text-2xl outline-none',
                     'placeholder' => 'NickName'
                 ],
@@ -36,7 +36,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'autocomplete' => 'email',                     
+                    'autocomplete' => 'email',
                     'class' => 'bg-transparent block mt-10 mx-auto border-b-2 w-1/5 h-20 text-2xl outline-none',
                     'placeholder' => 'Email'
                 ],
@@ -55,7 +55,7 @@ class RegistrationFormType extends AbstractType
                 'label' => false,
                 'mapped' => false,
                 'attr' => [
-                    'autocomplete' => 'new-password',                     
+                    'autocomplete' => 'new-password',
                     'class' => 'bg-transparent block mt-10 mx-auto border-b-2 w-1/5 h-20 text-2xl outline-none',
                     'placeholder' => 'Password'
                 ],
@@ -70,8 +70,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     /**
