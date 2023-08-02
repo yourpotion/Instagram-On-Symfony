@@ -1,0 +1,102 @@
+{% block body %}
+
+<section class="main">
+    <div class="wrapper">
+        {# Left sidebar #}
+        <div class="left-col">
+        {% for post in posts %}
+            <div class="post">
+                <div class="info">
+                    <div class="user">
+                        <div class="profile-pic"><img src="{{absolute_url(asset('images/cover 1.png'))}}" alt=""></div>
+                        <p class="username">{{post.title}}</p>
+                    </div>
+                    <img src="{{absolute_url(asset('images/option.png'))}}" class="options" alt="">
+                </div>
+                <img src="{{post.imagePath}}" class="post-image" alt="">
+                <div class="post-content">
+                    <div class="reaction-wrapper">
+                        <img src="{{absolute_url(asset('images/like.PNG'))}}" class="icon" alt="">
+                        <img src="{{absolute_url(asset('images/comment.PNG'))}}" class="icon" alt="">
+                        <img src="{{absolute_url(asset('images/send.PNG'))}}" class="icon" alt="">
+                        <img src="{{absolute_url(asset('images/save.PNG'))}}" class="save icon" alt="">
+                    </div>
+                    <p class="likes">1,012 likes</p>
+                    <p class="description"><span>{{post.title}} </span> {{post.description}}</p>
+                    <p class="post-time">{{post.ReleaseDate}}</p>
+                </div>
+                <div class="comment-wrapper">
+                    <img src="{{absolute_url(asset('images/smile.png'))}}" class="icon" alt="">
+                    <input type="text" class="comment-box" placeholder="Add a comment">
+                    <button class="comment-btn">post</button>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    {# Right sidebar #}
+    <div class="right-col">
+        <div class="profile-card">
+            <div class="profile-pic">
+                <img src="{{absolute_url(asset('images/profile-pic.PNG'))}}" alt="" />
+            </div>
+            <div>
+                <p class="username">modern_web_channel</p>
+                <p class="sub-text">kunaal kumar</p>
+            </div>
+            <button class="action-btn">switch</button>
+        </div>
+        <p class="suggestion-text">Suggestions for you</p>
+        <div class="profile-card">
+            <div class="profile-pic">
+                <img src="{{absolute_url(asset('images/cover 9.PNG'))}}" alt="" />
+            </div>
+            <div>
+                <p class="username">modern_web_channel</p>
+                <p class="sub-text">followed bu user</p>
+            </div>
+            <button class="action-btn">follow</button>
+        </div>
+        <div class="profile-card">
+            <div class="profile-pic">
+                <img src="{{absolute_url(asset('images/cover 10.PNG'))}}" alt="" />
+            </div>
+            <div>
+                <p class="username">modern_web_channel</p>
+                <p class="sub-text">followed bu user</p>
+            </div>
+            <button class="action-btn">follow</button>
+        </div>
+        <div class="profile-card">
+            <div class="profile-pic">
+                <img src="{{absolute_url(asset('images/cover 11.PNG'))}}" alt="" />
+            </div>
+            <div>
+                <p class="username">modern_web_channel</p>
+                <p class="sub-text">followed bu user</p>
+            </div>
+            <button class="action-btn">follow</button>
+        </div>
+        <div class="profile-card">
+            <div class="profile-pic">
+                <img src="{{absolute_url(asset('images/cover 12.PNG'))}}" alt="" />
+            </div>
+            <div>
+                <p class="username">modern_web_channel</p>
+                <p class="sub-text">followed bu user</p>
+            </div>
+            <button class="action-btn">follow</button>
+        </div>
+        <div class="profile-card">
+            <div class="profile-pic">
+                <img src="{{absolute_url(asset('images/cover 13.PNG'))}}" alt="" />
+            </div>
+            <div>
+                <p class="username">modern_web_channel</p>
+                <p class="sub-text">followed bu user</p>
+            </div>
+            <button class="action-btn">follow</button>
+        </div>
+    </div>
+</section>
+{% endblock %}
