@@ -3,13 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\PostUserLikes;
 use App\Entity\User;
 use App\Form\PostFormType;
 use App\Form\UserFormType;
+
+use App\Repository\PostRepository;
 use App\Repository\PostsRepository;
+use App\Repository\PostUserLikesRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,25 +37,82 @@ class MainInstagramPageController extends AbstractController
      */
     private $userRepository;
 
+    private $postUserLikesRepository;
+
+    public $heartImageStatus;
+
     /**
      * @param PostsRepository $postsRepository
      * @param EntityManagerInterface $em
      */
-    public function __construct(PostsRepository $postsRepository, EntityManagerInterface $em, UserRepository $userRepository)
+    public function __construct(PostRepository $postsRepository, EntityManagerInterface $em, UserRepository $userRepository, PostUserLikesRepository $postUserLikesRepository)
     {
         $this->postsRepository = $postsRepository;
+        $this->postUserLikesRepository = $postUserLikesRepository;
         $this->em = $em;
         $this->userRepository = $userRepository;
     }
+
+    #[Route('/post/{postId}', methods: ['GET'], name: 'main_with_id')]
+    public function addLikeToPost($postId): Response
+    {
+        $post = $this->postsRepository->find($postId);
+
+        $currentUser = $this->getUser();
+
+        // Make sure about like - does it is or not?
+        $isLikedByCurrentUser = $post->getLikes()->filter(function ($like) use ($currentUser) {
+            return $like->getUser() === $currentUser;
+        })->count() > 0;
+
+        if (!$isLikedByCurrentUser) {
+            // make a new like if it is not being
+            $like = new PostUserLikes();
+            $like->setUser($currentUser);
+            $like->setPost($post);
+
+            $post->addLike($like);
+
+            // Save changes
+            $this->postUserLikesRepository->save($like);
+            $heartImageStatus = true;
+        } else {
+            // Delete like if it is being
+            $existingLike = $post->getLikes()->filter(function ($like) use ($currentUser) {
+                return $like->getUser() === $currentUser;
+            })->first();
+
+            if ($existingLike) {
+                $post->removeLike($existingLike);
+
+                $this->postUserLikesRepository->remove($existingLike);
+       
+                $heartImageStatus = false;
+            }
+        }
+
+        return $this->redirectToRoute('app_main_instagram_page', [
+            'heartImageStatus' => $heartImageStatus
+        ]);
+    }
+
+    
 
     #[Route('/', name: 'app_main_instagram_page')]
     /**
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $heartImageStatus = $request->get('heartImageStatus');
+        if ($heartImageStatus) {
+        } else {
+            $heartImageStatus = false;
+        }
         return $this->render('MainInstagramPage/index.html.twig', [
-            'posts' => $this->postsRepository->findAll()
+            'posts' => $this->postsRepository->findAll(),
+            'heartImageStatus' => $heartImageStatus,
+            'users' => $this->userRepository->findAll()
         ]);
     }
 
@@ -126,6 +188,7 @@ class MainInstagramPageController extends AbstractController
 
                 $newUser->setImagePath('/uploads/profile' . $newFileName);
             }
+
             $this->userRepository->save($newUser);
 
             return $this->redirectToRoute('app_main_instagram_page');
