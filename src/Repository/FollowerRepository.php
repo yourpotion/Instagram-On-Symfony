@@ -21,6 +21,31 @@ class FollowerRepository extends ServiceEntityRepository
         parent::__construct($registry, Follower::class);
     }
 
+            /**
+     * @param Follower $follower
+     * 
+     * @return void
+     */
+    public function save(Follower $follower): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($follower);
+        $entityManager->flush();
+    }
+
+
+    /**
+     * @param Following $following
+     * 
+     * @return void
+     */
+    public function remove(Follower $follower): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($follower);
+        $entityManager->flush();
+    }
+
 //    /**
 //     * @return Follower[] Returns an array of Follower objects
 //     */

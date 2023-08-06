@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FollowerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FollowerRepository::class)]
@@ -11,21 +13,46 @@ class Follower
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     */
+    private ?int $id;
+
 
     #[ORM\ManyToOne(inversedBy: 'followers')]
-    private ?User $user = null;
+    /**
+     * @var User
+     */
+    private ?User $user;
 
+    public function __construct()
+    {
+
+    }
+
+    /**
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+
+    /**
+     * @return User
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User $user
+     * 
+     * @return static
+     */
     public function setUser(?User $user): static
     {
         $this->user = $user;

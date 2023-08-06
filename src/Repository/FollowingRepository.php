@@ -21,6 +21,31 @@ class FollowingRepository extends ServiceEntityRepository
         parent::__construct($registry, Following::class);
     }
 
+        /**
+     * @param Following $following
+     * 
+     * @return void
+     */
+    public function save(Following $following): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($following);
+        $entityManager->flush();
+    }
+
+
+    /**
+     * @param Following $following
+     * 
+     * @return void
+     */
+    public function remove(Following $following): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($following);
+        $entityManager->flush();
+    }
+
 //    /**
 //     * @return Following[] Returns an array of Following objects
 //     */

@@ -2,21 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\Follower;
+use App\Entity\Following;
 use App\Entity\Post;
 use App\Entity\PostUserLikes;
 use App\Entity\User;
 use App\Form\PostFormType;
 use App\Form\UserFormType;
-
+use App\Repository\FollowerRepository;
+use App\Repository\FollowingRepository;
 use App\Repository\PostRepository;
 use App\Repository\PostsRepository;
 use App\Repository\PostUserLikesRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,21 +40,32 @@ class MainInstagramPageController extends AbstractController
 
     private $postUserLikesRepository;
 
+    private $followingRepository;
+
+    private $followerRepository;
+
     public $heartImageStatus;
 
     /**
      * @param PostsRepository $postsRepository
      * @param EntityManagerInterface $em
      */
-    public function __construct(PostRepository $postsRepository, EntityManagerInterface $em, UserRepository $userRepository, PostUserLikesRepository $postUserLikesRepository)
+    public function __construct(PostRepository $postsRepository, EntityManagerInterface $em, UserRepository $userRepository, PostUserLikesRepository $postUserLikesRepository, FollowingRepository $followingRepository, FollowerRepository $followerRepository)
     {
         $this->postsRepository = $postsRepository;
         $this->postUserLikesRepository = $postUserLikesRepository;
         $this->em = $em;
         $this->userRepository = $userRepository;
+        $this->followingRepository = $followingRepository;
+        $this->followerRepository = $followerRepository;
     }
 
     #[Route('/post/{postId}', methods: ['GET'], name: 'main_with_id')]
+    /**
+     * @param mixed $postId
+     * 
+     * @return Response
+     */
     public function addLikeToPost($postId): Response
     {
         $post = $this->postsRepository->find($postId);
@@ -86,7 +98,7 @@ class MainInstagramPageController extends AbstractController
                 $post->removeLike($existingLike);
 
                 $this->postUserLikesRepository->remove($existingLike);
-       
+
                 $heartImageStatus = false;
             }
         }
@@ -96,7 +108,52 @@ class MainInstagramPageController extends AbstractController
         ]);
     }
 
-    
+    #[Route('/follow/{userId}',  name: 'main_start_following')]
+    /**
+     * @param mixed $userId
+     * 
+     * @return Response
+     */
+    public function startFollowing($userId): Response
+    {
+        $userFollowOn = $this->userRepository->find($userId);
+
+        $userWhoFollow = $this->getUser();
+
+        $isFollowingByCurrentUser = $userFollowOn->getFollowings()->filter(function ($following) use ($userWhoFollow) {
+            return $following->getUser() === $userWhoFollow;
+        })->count() > 0;
+
+        if (!$isFollowingByCurrentUser) {
+
+            $following = new Following();
+            $follower = new Follower(); //($this-followerRepository->find($id)) - для другого варианта
+
+
+            $follower->setUser($userFollowOn);
+            $following->setUser($userWhoFollow);
+
+            $following->setFollower($follower->getUser());
+
+            $userFollowOn->addFollower($follower);
+
+            $this->followerRepository->save($follower);
+            $this->followingRepository->save($following);
+        } else {
+            $existingFollowing = $userFollowOn->getFollowings()->filter(function ($following) use ($userWhoFollow) {
+                return $following->getUser() === $userWhoFollow;
+            })->first();
+
+            if ($existingFollowing) {
+
+                $userFollowOn->removeFollowing($existingFollowing);
+                $this->followingRepository->remove($existingFollowing);
+            }
+        }
+        return $this->redirectToRoute('app_main_instagram_page');
+    }
+
+
 
     #[Route('/', name: 'app_main_instagram_page')]
     /**

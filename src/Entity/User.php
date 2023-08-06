@@ -76,13 +76,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $followers;
 
 
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->followings = new ArrayCollection();
         $this->followers = new ArrayCollection();
-
     }
 
 
@@ -188,7 +188,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userVerifStatus = $isVerified;
 
         return $this;
-        
     }
 
     /**
@@ -297,6 +296,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->likes;
     }
 
+    /**
+     * @param PostUserLikes $like
+     * 
+     * @return static
+     */
     public function addLike(PostUserLikes $like): static
     {
         if (!$this->likes->contains($like)) {
@@ -307,6 +311,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param PostUserLikes $like
+     * 
+     * @return static
+     */
     public function removeLike(PostUserLikes $like): static
     {
         if ($this->likes->removeElement($like)) {
@@ -327,6 +336,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->followings;
     }
 
+    /**
+     * @param Following $following
+     * 
+     * @return static
+     */
     public function addFollowing(Following $following): static
     {
         if (!$this->followings->contains($following)) {
@@ -337,6 +351,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param Following $following
+     * 
+     * @return static
+     */
     public function removeFollowing(Following $following): static
     {
         if ($this->followings->removeElement($following)) {
@@ -357,6 +376,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->followers;
     }
 
+    /**
+     * @param Follower $follower
+     * 
+     * @return static
+     */
     public function addFollower(Follower $follower): static
     {
         if (!$this->followers->contains($follower)) {
@@ -367,6 +391,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param Follower $follower
+     * 
+     * @return static
+     */
     public function removeFollower(Follower $follower): static
     {
         if ($this->followers->removeElement($follower)) {
@@ -378,7 +407,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
-
 }

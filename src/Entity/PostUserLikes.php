@@ -11,24 +11,44 @@ class PostUserLikes
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     */
+    private ?int $id;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
-    private ?Post $post = null;
+    /**
+     * @var Post
+     */
+    private ?Post $post;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
-    private ?User $user = null;
+    /**
+     * @var User
+     */
+    private ?User $user;
 
+    /**
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return Post
+     */
     public function getPost(): ?Post
     {
         return $this->post;
     }
 
+    /**
+     * @param Post $post
+     * 
+     * @return static
+     */
     public function setPost(?Post $post): static
     {
         $this->post = $post;
@@ -36,11 +56,19 @@ class PostUserLikes
         return $this;
     }
 
+    /**
+     * @return User
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User $user
+     * 
+     * @return static
+     */
     public function setUser(?User $user): static
     {
         $this->user = $user;

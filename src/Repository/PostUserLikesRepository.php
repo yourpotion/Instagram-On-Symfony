@@ -21,6 +21,11 @@ class PostUserLikesRepository extends ServiceEntityRepository
         parent::__construct($registry, PostUserLikes::class);
     }
 
+    /**
+     * @param PostUserLikes $like
+     * 
+     * @return void
+     */
     public function save(PostUserLikes $like): void
     {
         $entityManager = $this->getEntityManager();
@@ -28,6 +33,11 @@ class PostUserLikesRepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
+    /**
+     * @param PostUserLikes $like
+     * 
+     * @return void
+     */
     public function remove(PostUserLikes $like): void
     {
         $entityManager = $this->getEntityManager();
