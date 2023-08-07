@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\DTO;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mailer\MailerInterface;
 
 class EmailContextDTO
 {

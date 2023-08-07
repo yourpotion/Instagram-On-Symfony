@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\PostUserLikesRepository;
@@ -14,7 +16,7 @@ class PostUserLikes
     /**
      * @var int
      */
-    private ?int $id;
+    private int $id;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
     /**
@@ -31,7 +33,7 @@ class PostUserLikes
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

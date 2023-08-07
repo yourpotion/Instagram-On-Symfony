@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace App\Entity;
 
 use App\Repository\FollowerRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FollowerRepository::class)]
@@ -16,7 +17,7 @@ class Follower
     /**
      * @var int
      */
-    private ?int $id;
+    private int $id;
 
 
     #[ORM\ManyToOne(inversedBy: 'followers')]
@@ -33,7 +34,7 @@ class Follower
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

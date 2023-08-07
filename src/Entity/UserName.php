@@ -14,7 +14,7 @@ class UserName
     /**
      * @var int
      */
-    private ?int $id;
+    private int $id;
 
     #[ORM\Column(length: 255)]
     /**
@@ -25,7 +25,7 @@ class UserName
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

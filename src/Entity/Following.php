@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace App\Entity;
 
 use App\Repository\FollowingRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FollowingRepository::class)]
@@ -16,7 +17,7 @@ class Following
     /**
      * @var int
      */
-    private ?int $id;
+    private int $id;
 
 
 
@@ -40,7 +41,7 @@ class Following
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
