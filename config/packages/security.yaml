@@ -9,6 +9,8 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        oauth_hwi:
+            id: hwi_oauth.user.provider
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
@@ -24,6 +26,20 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+            form_login: ~
+            entry_point: form_login
+
+            oauth:
+                resource_owners:
+                    auth0: "/auth0/callback"
+                login_path: /
+                failure_path: /
+                default_target_path: /
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider
+
+
+            
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

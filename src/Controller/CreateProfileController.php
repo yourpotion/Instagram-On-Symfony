@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\CreatePostController;
+namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostFormType;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CreatePostController extends AbstractController
+class CreateProfileController extends AbstractController
 {
     /**
      * @var \App\Repository\PostRepository $postRepository
@@ -32,6 +32,7 @@ class CreatePostController extends AbstractController
     {
         $this->postRepository = $postRepository;
     }
+
     #[Route('/create', name: 'create_post')]
     /**
      * @param Request $request
