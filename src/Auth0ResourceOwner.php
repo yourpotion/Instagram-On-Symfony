@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use HWI\Bundle\OAuthBundle\OAuth\ResourceOwner\GenericOAuth2ResourceOwner;
@@ -16,14 +18,25 @@ class Auth0ResourceOwner extends GenericOAuth2ResourceOwner
         'profilepicture' => 'picture',
     );
 
-    public function getAuthorizationUrl($redirectUri, array $extraParameters = array())
+    /**
+     * @param mixed $redirectUri
+     * @param array $extraParameters
+     * 
+     * @return array
+     */
+    public function getAuthorizationUrl($redirectUri, array $extraParameters = array()): array
     {
         return parent::getAuthorizationUrl($redirectUri, array_merge(array(
             'audience' => $this->options['audience'],
         ), $extraParameters));
     }
 
-    protected function configureOptions(OptionsResolver $resolver)
+    /**
+     * @param OptionsResolver $resolver
+     * 
+     * @return void
+     */
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
