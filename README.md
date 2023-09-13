@@ -28,30 +28,35 @@ Instagram On Symfony is a web application inspired by Instagram, built using the
 To run this application locally, follow these steps:
 
 1.Clone the repository:
-```bash
-git clone https://github.com/yourpotion/instagram-on-symfony.git
-```
+
+  ```bash
+  git clone https://github.com/yourpotion/instagram-on-symfony.git
+  ```
 
 2.Navigate to the project directory:
-```bash
-cd instagram-on-symfony
-```
+
+  ```bash
+  cd instagram-on-symfony
+  ```
 
 3.Install dependencies:
-```bash
-composer install
-```
+
+  ```bash
+  composer install
+  ```
 
 4.Configure your database connection in .env and run migrations:
-```bash
-php bin/console doctrine:database:create
-php bin/console doctrine:migrations:migrate
-```
+
+  ```bash
+  php bin/console doctrine:database:create
+  php bin/console doctrine:migrations:migrate
+  ```
 
 5.Start the Symfony development server:
-```bash
-symfony server:start
-```
+
+  ```bash
+  symfony server:start
+  ```
 
 Access the application in your web browser at http://localhost:8000.
 
