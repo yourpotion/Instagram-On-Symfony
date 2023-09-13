@@ -27,7 +27,7 @@ Instagram On Symfony is a web application inspired by Instagram, built using the
 
 To run this application locally, follow these steps:
 
-1. Clone the repository:
+1.Clone the repository:
 git clone https://github.com/yourpotion/instagram-on-symfony.git
 
 2.Navigate to the project directory:
